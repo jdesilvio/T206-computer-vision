@@ -10,6 +10,56 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+# search route
+@app.route('/search', methods=['POST'])
+def search():
+
+    if request.method == "POST":
+
+        RESULTS_ARRAY = []
+
+        # get url
+        image_url = request.form.get('img')
+
+        try:
+
+            # initialize the image descriptor
+            cd = ColorDescriptor((8, 12, 3))
+
+            # load the query image and describe it
+            from skimage import io
+            import cv2
+            query = io.imread(image_url)
+            query = (query * 255).astype("uint8")
+            (r, g, b) = cv2.split(query)
+            query = cv2.merge([b, g, r])
+            features = cd.describe(query)
+
+            # perform the search
+            searcher = Searcher(INDEX)
+            results = searcher.search(features)
+
+            # loop over the results, displaying the score and image name
+            for (score, resultID) in results:
+                RESULTS_ARRAY.append(
+                    {"image": str(resultID), "score": str(score)})
+
+            # return success
+            return jsonify(results=(RESULTS_ARRAY[::-1][:3]))
+
+        except:
+
+            # return error
+            jsonify({"sorry": "Sorry, no results! Please try again."}), 500
+
+
+
+
+
+
+
+### Test routes - maybe use later ###
+
 # Player route - displays player name
 @app.route('/player')
 @app.route('/player/<player>')
