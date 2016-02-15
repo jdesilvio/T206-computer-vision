@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Home | {{ super() }}{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+
+    <div class="col-md-7">
+      <h2>Select an Image</h2>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <p><img src="https://s3.amazonaws.com/t206/images/loc/fronts/097_0939_ty_cobb_portrait-red_front.jpg" style="height: 250px;" class="img"></p>
+          <p><img src="https://s3.amazonaws.com/t206/images/loc/fronts/234_1047_walter_johnson_portrait_front.jpg" style="height: 250px;" class="img"></p>
+        </div>
+        <div class="col-md-6">
+          <p><img src="https://s3.amazonaws.com/t206/images/loc/fronts/268_0926_nap_lajoie_portrait_front.jpg" style="height: 250px;" class="img"></p>
+          <p><img src="https://s3.amazonaws.com/t206/images/loc/fronts/520_0936_cy_young_cleveland-portrait_front.jpg" style="height: 250px;" class="img"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-1">
+      <h2>Results</h2>
+      <br>
+      <p id="searching">Searching...</p>
+      <p id="error">Oh no! No results! Check your internet connection.</p>
+      <table class="table" id="results-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="results">
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <br>
+
+{% endblock %}
