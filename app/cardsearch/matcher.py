@@ -3,19 +3,21 @@
 import numpy as np
 import cv2
 import h5py
+import os
 
-class CoverMatcher:
-    def __init__(self, descriptor, coverPaths):
+class CardMatcher:
+    def __init__(self, descriptor):
         self.descriptor = descriptor
-        self.coverPaths = coverPaths
 
     # Compare the query image to each image in database and generate a score
     def search(self, queryKps, queryDescs):
         results = {}
 
+        INDEX = os.path.join(os.path.dirname(__file__), '../testData/data.h5')
+
         # Read data from HDF5
         h5db = []
-        with h5py.File('../testData/data/data.h5','r') as hf2:
+        with h5py.File(INDEX,'r') as hf2:
             for i in hf2['kps/']:
                 k = hf2['kps/' + i][:]
                 d = hf2['descs/' + i][:]

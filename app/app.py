@@ -1,9 +1,16 @@
 import os
 import numpy as np
-
+from cardsearch.descriptor import CardDescriptor
+from cardsearch.matcher import CardMatcher
+import cv2
+from skimage import io
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+
+# Define INDEX - research why? and remove
+#INDEX = os.path.join(os.path.dirname(__file__), 'index.csv')
+INDEX = ["001_0837_ed_abbaticchio_brown-sleeves_front.jpg", "001_0837_ed_abbaticchio_brown-sleeves_front.jpg"]
 
 # Homepage route
 @app.route('/')
@@ -16,28 +23,28 @@ def search():
 
     if request.method == "POST":
 
+        # Initialize results array for best matching images
         RESULTS_ARRAY = []
 
-        # get url
+        # Get image url when a click of an image is performed
         image_url = request.form.get('img')
 
         try:
 
-            # initialize the image descriptor
-            cd = ColorDescriptor((8, 12, 3))
+            # Initialize the image descriptor
+            cd = CardDescriptor()
 
-            # load the query image and describe it
-            from skimage import io
-            import cv2
+            # Load the query image and describe it
             query = io.imread(image_url)
-            query = (query * 255).astype("uint8")
-            (r, g, b) = cv2.split(query)
-            query = cv2.merge([b, g, r])
-            features = cd.describe(query)
+            # Convert query to grayscale
+            gray = cv2.cvtColor(query, cv2.COLOR_BGR2GRAY)
+            # Extract the keypoints and descriptors
+            (queryKps, queryDescs) = cd.describe(gray)
 
-            # perform the search
-            searcher = Searcher(INDEX)
-            results = searcher.search(features)
+            # Perform image search
+            searcher = CardMatcher(cd)
+            # Return search results
+            results = searcher.search(queryKps, queryDescs)
 
             # loop over the results, displaying the score and image name
             for (score, resultID) in results:
@@ -45,7 +52,9 @@ def search():
                     {"image": str(resultID), "score": str(score)})
 
             # return success
-            return jsonify(results=(RESULTS_ARRAY[::-1][:3]))
+            #return jsonify(results=(RESULTS_ARRAY[::-1][:3]))
+            #return jsonify(results=(RESULTS_ARRAY[:3]))
+            return jsonify(results=(RESULTS_ARRAY[::-1]))
 
         except:
 

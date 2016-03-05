@@ -1,11 +1,11 @@
 FROM python:3.5
 
-#ENV HOME /root
+ENV HOME /root
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y nginx
 RUN apt-get install -y supervisor
+RUN apt-get install -y nginx
 RUN apt-get install -y python-virtualenv
 RUN apt-get install -y python-dev
 RUN apt-get install -y gcc
@@ -56,16 +56,14 @@ RUN pip install tables
 RUN pip install h5py
 
 # Update environment and working directories
-#ENV PYTHONUNBUFFERED 1
-#ENV HDF5_DIR /usr/bin/ld
-#RUN mkdir /code
-#WORKDIR /code
-#RUN mkdir /config
+ENV PYTHONUNBUFFERED 1
 #ADD app/requirements.txt /code/
 #RUN pip install -r requirements.txt
+WORKDIR /app
 ADD ./app /app
 ADD ./config /config
-WORKDIR /app
+
+
 
 # Setup config
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf

@@ -3,7 +3,7 @@
 import numpy as np
 import cv2
 
-class CoverDescriptor:
+class CardDescriptor:
     def __init__(self, kpMethod="SIFT", descMethod="SIFT"):
         self.kpMethod = kpMethod
         self.descMethod = descMethod
