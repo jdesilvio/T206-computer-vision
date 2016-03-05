@@ -8,10 +8,6 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# Define INDEX - research why? and remove
-#INDEX = os.path.join(os.path.dirname(__file__), 'index.csv')
-INDEX = ["001_0837_ed_abbaticchio_brown-sleeves_front.jpg", "001_0837_ed_abbaticchio_brown-sleeves_front.jpg"]
-
 # Homepage route
 @app.route('/')
 def index():
@@ -54,7 +50,7 @@ def search():
             # return success
             #return jsonify(results=(RESULTS_ARRAY[::-1][:3]))
             #return jsonify(results=(RESULTS_ARRAY[:3]))
-            return jsonify(results=(RESULTS_ARRAY[::-1]))
+            return jsonify(results=(RESULTS_ARRAY[0]))
 
         except:
 
