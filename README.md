@@ -6,7 +6,7 @@
 
 ### Setup
     docker build --rm -t h5data-only ./data-only
-    docker build --rm -t t206cv .
+    docker build --rm -t t206cv ./app
     docker run -d -t -v /h5data --name data h5data-only
     docker run -p 80:5000 --volumes-from data --name app t206cv
 

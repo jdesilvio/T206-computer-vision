@@ -22,12 +22,13 @@ class CardMatcher:
                 k = hf2['kps/' + i][:]
                 d = hf2['descs/' + i][:]
                 h5db.append({"file": i, "desc": (k, d)})
-
+	
         # Generate score
         for i in h5db:
             (kps, descs) = i["desc"]
             score = self.match(queryKps, queryDescs, kps, descs)
             results[i["file"]] = score
+	print len(h5db)
 
         # Sort results
         if len(results) > 0:
