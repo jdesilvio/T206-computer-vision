@@ -21,7 +21,7 @@ RUN apt-get install -y python-dev
 RUN apt-get install -y subversion
 RUN apt-get install -y supervisor
 RUN apt-get install -y nginx
-#RUN apt-get install -y python-numpy
+RUN apt-get install -y cython
 #RUN apt-get install -y python-scipy
 #RUN apt-get install -y python-matplotlib
 #RUN apt-get install -y ipython
