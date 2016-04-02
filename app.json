@@ -1,0 +1,6 @@
+{
+  "name": "My App Name",
+  "description": "An example app.json for heroku-docker",
+  "image": "t206cv:latest",
+  "addons": []
+}
