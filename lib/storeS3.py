@@ -26,9 +26,12 @@ def url_to_image(url):
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     return image
 
-s3 = boto3.resource('s3')
+session = boto3.Session(
+                        aws_access_key_id=ACCESS_KEY,
+                        aws_secret_access_key=SECRET_KEY
+                       )
 
-s3 = boto3.resource('s3')
+s3 = session.resource('s3')
 t206bucket = s3.Bucket('t206')
 
 bucketPath = "https://s3.amazonaws.com/t206/"
