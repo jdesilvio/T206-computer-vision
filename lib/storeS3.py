@@ -27,8 +27,8 @@ def url_to_image(url):
     return image
 
 session = boto3.Session(
-                        aws_access_key_id=ACCESS_KEY,
-                        aws_secret_access_key=SECRET_KEY
+                        aws_access_key_id=os.environ["ACCESS_KEY"],
+                        aws_secret_access_key=os.environ["SECRET_KEY"]
                        )
 
 s3 = session.resource('s3')
@@ -39,7 +39,7 @@ bucketPath = "https://s3.amazonaws.com/t206/"
 images = []
 for object in t206bucket.objects.filter(Prefix='images/loc/fronts'):
     images.append(object.key)
-images = images[1:]
+images = images[1:100]
 cd = CardDescriptor()
 cv = CardMatcher(cd)
 
@@ -56,7 +56,7 @@ for file in images:
     h5save.append({"name": filename, "kps": kps, "descs": descs})
 
 # Write data to HDF5
-with h5py.File('testData/data2.h5', 'w') as hf:
+with h5py.File('../testData/data2.h5', 'w') as hf:
     h5kps = hf.create_group('kps')
     h5descs = hf.create_group('descs')
     for i in h5save:
