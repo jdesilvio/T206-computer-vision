@@ -56,7 +56,7 @@ for file in images:
     h5save.append({"name": filename, "kps": kps, "descs": descs})
 
 # Write data to HDF5
-with h5py.File('../testData/data2.h5', 'w') as hf:
+with h5py.File('testData/data.h5', 'w') as hf:
     h5kps = hf.create_group('kps')
     h5descs = hf.create_group('descs')
     for i in h5save:
