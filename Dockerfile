@@ -44,6 +44,7 @@ RUN cd && wget https://github.com/Itseez/opencv/archive/3.1.0.zip \
                  -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
                  -D BUILD_EXAMPLES=ON .. \
     && make -j2 && make install \
+        && cd && rm -rf opencv-3.1.0 && rm 3.1.0.zip
 
 # Build HDF5
 RUN cd ; wget https://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.16.tar.gz
@@ -79,4 +80,4 @@ RUN ln -s /config/nginx.conf /etc/nginx/sites-enabled/
 RUN ln -s /config/supervisor.conf /etc/supervisor/conf.d/
 
 EXPOSE 80
-CMD ["python app.py"]
+CMD ["python", "app.py"]

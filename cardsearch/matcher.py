@@ -13,7 +13,7 @@ class CardMatcher:
     def search(self, queryKps, queryDescs):
         results = {}
 
-        INDEX = os.path.join(os.path.dirname(__file__), '../testData/data.h5')
+        INDEX = os.path.join(os.path.dirname(__file__), '../dbdata/data.h5')
 
         # Read data from HDF5
         h5db = []

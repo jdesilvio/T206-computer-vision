@@ -5,14 +5,14 @@
 * https://github.com/realpython/flask-image-search as a starting point for the Flask app
 
 ### Setup
-    docker build --rm -t h5data-only ./data-only
-    docker build --rm -t t206cv ./app
-    docker run -d -t -v /h5data --name data h5data-only
+    docker build --rm -t t206cv-data .
+    docker build --rm -t t206cv .
+    docker run -d -t -v /dbdata --name data t206cv-data
     docker run -p 80:5000 --volumes-from data --name app t206cv
 
 ### Refresh
     docker stop app && docker rm app
-    docker build --rm -t t206cv ./code
+    docker build --rm -t t206cv .
     docker run -p 80:5000 --volumes-from data --name app t206cv
 
 ### Images used
