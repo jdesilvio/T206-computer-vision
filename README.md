@@ -7,16 +7,5 @@
 ### Setup
     docker build --rm -t t206cv-data .
     docker build --rm -t t206cv .
-    docker run -d -t -v /dbdata --name data t206cv-data
+    docker run -d -t -v /app/dbdata --name data t206cv-data
     docker run -p 80:5000 --volumes-from data --name app t206cv
-
-### Refresh
-    docker stop app && docker rm app
-    docker build --rm -t t206cv .
-    docker run -p 80:5000 --volumes-from data --name app t206cv
-
-### Images used
-https://s3.amazonaws.com/t206/images/loc/fronts/097_0939_ty_cobb_portrait-red_front.jpg
-https://s3.amazonaws.com/t206/images/loc/fronts/234_1047_walter_johnson_portrait_front.jpg
-https://s3.amazonaws.com/t206/images/loc/fronts/268_0926_nap_lajoie_portrait_front.jpg
-https://s3.amazonaws.com/t206/images/loc/fronts/520_0936_cy_young_cleveland-portrait_front.jpg
