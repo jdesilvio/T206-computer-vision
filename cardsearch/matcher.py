@@ -5,6 +5,7 @@ import cv2
 import h5py
 import os
 
+
 class CardMatcher:
     def __init__(self, descriptor):
         self.descriptor = descriptor
@@ -16,24 +17,23 @@ class CardMatcher:
         INDEX = os.path.join(os.path.dirname(__file__), '../dbdata/data.h5')
 
         # Read data from HDF5
-        h5db = []
-        with h5py.File(INDEX,'r') as hf2:
-            for i in hf2['kps/']:
-                k = hf2['kps/' + i][:]
-                d = hf2['descs/' + i][:]
-                h5db.append({"file": i, "desc": (k, d)})
-	
+        dbdata = []
+        with h5py.File(INDEX, 'r') as h5data:
+            for i in h5data['kps/']:
+                h5kps = h5data['kps/' + i][:]
+                h5descs = h5data['descs/' + i][:]
+                dbdata.append({"file": i, "desc": (h5kps, h5descs)})
+
         # Generate score
-        for i in h5db:
+        for i in dbdata:
             (kps, descs) = i["desc"]
             score = self.match(queryKps, queryDescs, kps, descs)
             results[i["file"]] = score
-	print len(h5db)
 
         # Sort results
         if len(results) > 0:
-            results = sorted([(v, k) for (k, v) in results.items() if v > 0], \
-            reverse=True)
+            results = sorted([(v, k) for (k, v) in results.items() if v > 0],
+                             reverse=True)
 
         return results
 
