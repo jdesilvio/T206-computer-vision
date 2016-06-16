@@ -13,12 +13,34 @@
     <title>{% block title %}T206CV{% endblock %}</title>
 
     <!-- stylesheets -->
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet" media="screen"> -->
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
 
   </head>
 
   <body>
+    <div id="header">
+      <div class="header-div logo-container">
+        <%= link_to image_tag("logo.png", alt: "Logo", id: "header-logo"), authenticated_root_path %>
+      </div>
+
+      <div class="header-div navbar-right">
+        <div class="nav-main">
+            <a href = "http://www.t206.io">Home</a>
+          <%= link_to "About", static_pages_about_path %>
+          <%= link_to "Contribute", static_pages_contribute_path %>
+        </div>
+
+        <div class="user-actions">
+          <% if user_signed_in? %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path %>
+            <%= link_to "Sign Up", new_user_registration_path %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <h1>{% block h1 %}{% endblock %}</h1>
 
@@ -46,7 +68,7 @@
 
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script> -->
     <script src="{{ url_for('static', filename='scripts.js') }}" type="text/javascript"></script>
 
   </body>
