@@ -8,10 +8,12 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
+
 # Homepage route
 @app.route('/')
 def index():
     return render_template("index.html")
+
 
 # search route
 @app.route('/search', methods=['POST'])
@@ -48,8 +50,6 @@ def search():
                     {"image": str(resultID), "score": str(score)})
 
             # return success
-            #return jsonify(results=(RESULTS_ARRAY[::-1][:3]))
-            #return jsonify(results=(RESULTS_ARRAY[:3]))
             return jsonify(results=(RESULTS_ARRAY[0]))
 
         except:
@@ -61,22 +61,22 @@ def search():
         return jsonify({"postError": "Not a POST."}), 500
 
 
+# Test routes - maybe use later ----------------------------------------------
 
-
-
-### Test routes - maybe use later ###
 
 # Player route - displays player name
 @app.route('/player')
 @app.route('/player/<player>')
 def player(player="Honus-Wagner"):
-    return  "You are looking for {}".format(player)
+    return "You are looking for {}".format(player)
+
 
 # Back route - displays brand name on back of card
 @app.route('/back')
 @app.route('/back/<back>')
 def back(back="Lenox"):
-    return  "You are looking for the {} back".format(back)
+    return "You are looking for the {} back".format(back)
+
 
 # Card route - displays player name and back combination
 @app.route('/card')
