@@ -12,23 +12,17 @@ class CardMatcher:
 
     # Compare the query image to each image in database and generate a score
     def search(self, queryKps, queryDescs):
-        results = {}
-
+        # Path to image database
         INDEX = os.path.join(os.path.dirname(__file__), '../dbdata/data.h5')
 
-        # Read data from HDF5
-        dbdata = []
+        # Compare query image to images in database
+        results = {}
         with h5py.File(INDEX, 'r') as h5data:
             for i in h5data['kps/']:
-                h5kps = h5data['kps/' + i][:]
-                h5descs = h5data['descs/' + i][:]
-                dbdata.append({"file": i, "desc": (h5kps, h5descs)})
-
-        # Generate score
-        for i in dbdata:
-            (kps, descs) = i["desc"]
-            score = self.match(queryKps, queryDescs, kps, descs)
-            results[i["file"]] = score
+                kps = h5data['kps/' + i][:]
+                descs = h5data['descs/' + i][:]
+                score = self.match(queryKps, queryDescs, kps, descs)
+                results[i] = score
 
         # Sort results
         if len(results) > 0:
