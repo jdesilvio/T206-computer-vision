@@ -1,5 +1,3 @@
-import os
-import numpy as np
 from cardsearch.descriptor import CardDescriptor
 from cardsearch.matcher import CardMatcher
 import cv2
@@ -28,24 +26,26 @@ def search():
         image_url = request.form.get('img')
 
         try:
-
             # Initialize the image descriptor
             cd = CardDescriptor()
 
             # Load the query image and describe it
             query = io.imread(image_url)
+
             # Convert query to grayscale
             gray = cv2.cvtColor(query, cv2.COLOR_BGR2GRAY)
+
             # Extract the keypoints and descriptors
             (queryKps, queryDescs) = cd.describe(gray)
 
-            # Perform image search
+            # Initialize CardMatcher
             searcher = CardMatcher(cd)
-            # Return search results
+
+            # Execute search and return results
             results = searcher.search(queryKps, queryDescs)
 
-            # loop over the results, displaying the score and image name
-            for (score, resultID) in results:
+            # Loop over the results, displaying the score and image name
+            for (score, resultID) in results:  # TODO: This can be optimized
                 RESULTS_ARRAY.append(
                     {"image": str(resultID), "score": str(score)})
 
@@ -53,9 +53,9 @@ def search():
             return jsonify(results=(RESULTS_ARRAY[0]))
 
         except:
-
             # return error
-            return jsonify({"sorry": "Sorry, no results! Please try again."}), 500
+            return jsonify(
+                    {"sorry": "Sorry, no results! Please try again."}), 500
 
     else:
         return jsonify({"postError": "Not a POST."}), 500
