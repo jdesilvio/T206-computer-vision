@@ -19,9 +19,6 @@ def search():
 
     if request.method == "POST":
 
-        # Initialize results array for best matching images
-        RESULTS_ARRAY = []
-
         # Get image url when a click of an image is performed
         image_url = request.form.get('img')
 
@@ -41,16 +38,13 @@ def search():
             # Initialize CardMatcher
             searcher = CardMatcher(cd)
 
-            # Execute search and return results
-            results = searcher.search(queryKps, queryDescs)
-
-            # Loop over the results, displaying the score and image name
-            for (score, resultID) in results:  # TODO: This can be optimized
-                RESULTS_ARRAY.append(
-                    {"image": str(resultID), "score": str(score)})
+            # Execute search and return match scores
+            scores = searcher.search(queryKps, queryDescs)
 
             # return success
-            return jsonify(results=(RESULTS_ARRAY[0]))
+            score, resultID = scores[0]
+            return jsonify(results=({"image": str(resultID),
+                                     "score": str(score)}))
 
         except:
             # return error

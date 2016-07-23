@@ -22,11 +22,14 @@ class CardMatcher:
                 kps = h5data['kps/' + i][:]
                 descs = h5data['descs/' + i][:]
                 score = self.match(queryKps, queryDescs, kps, descs)
-                results[i] = score
+
+                # Discard any comparisons that don't yield the minimum matches
+                if score > 0:
+                    results[i] = score
 
         # Sort results
         if len(results) > 0:
-            results = sorted([(v, k) for (k, v) in results.items() if v > 0],
+            results = sorted([(v, k) for (k, v) in results.items()],
                              reverse=True)
 
         return results
@@ -35,8 +38,8 @@ class CardMatcher:
     def match(self, kpsA, featuresA, kpsB, featuresB, ratio=.7, minMatches=50):
         matcher = cv2.DescriptorMatcher_create("BruteForce")
         rawMatches = matcher.knnMatch(featuresB, featuresA, 2)
-        matches = []
 
+        matches = []
         for m in rawMatches:
             if len(m) == 2 and m[0].distance < m[1].distance * ratio:
                 matches.append((m[0].trainIdx, m[0].queryIdx))
