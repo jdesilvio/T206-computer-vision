@@ -5,10 +5,9 @@ from cardsearch.matcher import CardMatcher
 import cv2
 from skimage import io
 from flask import Flask, render_template, request, jsonify
-from flask.ext.scss import Scss
 
 app = Flask(__name__)
-Scss(app, static_dir='static', asset_dir='assets')
+
 
 # Homepage route
 @app.route('/')
