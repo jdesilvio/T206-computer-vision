@@ -47,7 +47,7 @@ RUN cd && wget https://github.com/Itseez/opencv/archive/3.1.0.zip \
         && cd && rm -rf opencv-3.1.0 && rm 3.1.0.zip
 
 # Build HDF5
-RUN cd ; wget https://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.16.tar.gz
+RUN cd ; wget https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.16/src/hdf5-1.8.16.tar.gz
 RUN cd ; tar zxf hdf5-1.8.16.tar.gz
 RUN cd ; mv hdf5-1.8.16 hdf5-setup
 RUN cd ; cd hdf5-setup ; ./configure --prefix=/usr/local/

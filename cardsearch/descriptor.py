@@ -11,13 +11,14 @@ class CardDescriptor:
 
     # Extract key points and descriptors for an image
     def describe(self, image):
+        # -- This is the OpenCV2 way to get SIFT kps and descs
+        # -- Keeping for reference in case there are any issues
+        # detector = cv2.FeatureDetector_create(self.kpMethod)
+        # kps = detector.detect(image)
+        # extractor = cv2.DescriptorExtractor_create(self.descMethod)
+        # (kps, descs) = extractor.compute(image, kps)
+
         sift = cv2.xfeatures2d.SIFT_create()
-        #detector = cv2.FeatureDetector_create(self.kpMethod)
-        #kps = detector.detect(image)
-
-        #extractor = cv2.DescriptorExtractor_create(self.descMethod)
-        #(kps, descs) = extractor.compute(image, kps)
-
         (kps, descs) = sift.detectAndCompute(image, None)
 
         kps = np.float32([kp.pt for kp in kps])

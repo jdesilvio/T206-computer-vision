@@ -38,7 +38,7 @@ class CardMatcher:
         return results
 
     # Algorithm to return keypoint and descriptor matches of 2 images
-    def match(self, kpsA, featuresA, kpsB, featuresB, ratio=0.7, minMatches=50):
+    def match(self, kpsA, featuresA, kpsB, featuresB, ratio=.7, minMatches=50):
         matcher = cv2.DescriptorMatcher_create("BruteForce")
         rawMatches = matcher.knnMatch(featuresB, featuresA, 2)
         matches = []
