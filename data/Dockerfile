@@ -1,0 +1,7 @@
+FROM alpine:3.4
+
+ENV HOME /root
+ARG ACCESS_KEY
+ARG SECRET_KEY
+
+
