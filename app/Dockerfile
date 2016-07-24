@@ -70,14 +70,16 @@ RUN rm -fr /root/.cache
 ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 ADD . /app
-RUN mv config ../config
+#RUN mv config ../config
 
 # Setup config
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-RUN rm /etc/nginx/sites-enabled/default
+#RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+#RUN rm /etc/nginx/sites-enabled/default
 
-RUN ln -s /config/nginx.conf /etc/nginx/sites-enabled/
-RUN ln -s /config/supervisor.conf /etc/supervisor/conf.d/
+#RUN ln -s /config/nginx.conf /etc/nginx/sites-enabled/
+#RUN ln -s /config/supervisor.conf /etc/supervisor/conf.d/
 
-EXPOSE 80
-CMD ["python", "app.py"]
+#EXPOSE 80
+#CMD ["python", "app.py"]
+
+CMD uwsgi --ini /etc/uwsgi.ini
