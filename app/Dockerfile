@@ -68,8 +68,9 @@ RUN rm -fr /root/.cache
 
 # Update environment and working directories
 ENV PYTHONUNBUFFERED 1
-WORKDIR /app
-ADD . /app
+#WORKDIR /app
+#ADD . /app
+COPY app /app
 #RUN mv config ../config
 
 # Setup config
@@ -81,5 +82,9 @@ ADD . /app
 
 #EXPOSE 80
 #CMD ["python", "app.py"]
+
+COPY app /app
+COPY uwsgi.ini /etc/uwsgi.ini
+COPY shared_libs/* /lib/
 
 CMD uwsgi --ini /etc/uwsgi.ini

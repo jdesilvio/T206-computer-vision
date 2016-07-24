@@ -22,14 +22,10 @@ class CardMatcher:
                 kps = h5data['kps/' + i][:]
                 descs = h5data['descs/' + i][:]
                 score = self.match(queryKps, queryDescs, kps, descs)
-<<<<<<< HEAD
 
                 # Discard any comparisons that don't yield the minimum matches
                 if score > 0:
                     results[i] = score
-=======
-                results[i] = score
->>>>>>> 5e667f421b157aaf1dd3697dc05c562e2b09d24d
 
         # Sort results
         if len(results) > 0:
