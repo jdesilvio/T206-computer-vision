@@ -6,7 +6,7 @@ app:
 nginx:
     build: nginx
     ports:
-        - "1337:80"
+        - "80:80"
     links:
         - app
 
