@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from imutils import *
+from imutils import resize
 
 
 class CardDescriptor:
@@ -18,7 +18,7 @@ class CardDescriptor:
         # (kps, descs) = extractor.compute(image, kps)
 
         # Resize image to improve comparison speed when matching
-        image = imutils.resize(image, height=50)
+        image = resize(image, height=300)
 
         # Extract features
         sift = cv2.xfeatures2d.SIFT_create()
