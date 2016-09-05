@@ -30,6 +30,15 @@
     docker-compose build --no-cache &&
     docker-compose up -d --force-recreate --remove-orphans
 
+### If errors appear...
+
+And it sounds like a memory issue:
+
+ * Create a (swapfile)[https://gist.github.com/jdesilvio/20665f75779e092bcd6a69351cd21e66]
+ * It could be that there is a bunch of junk in your `docker-machine`. Check the size of a file called `disk.vmdk`. If it's large and you are ok with deleting all images and containers and starting from scratch, run:
+    docker-machine rm default
+
+
 ---
 
 ### Setup without Docker Compose (keeping for reference)
@@ -37,3 +46,5 @@
     docker build --rm -t t206cv .
     docker run -d -t -v /app/dbdata --name data t206cv-data
     docker run -p 80:5000 --volumes-from data --name app t206cv
+
+

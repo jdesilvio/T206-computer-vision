@@ -1,7 +1,7 @@
 import cv2
 
 
-def resize(image, width=None, height=None, inter=cv2.INNER_AREA):
+def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     """Resize an image while keeping the same aspect ratio."""
     dim = None
     (h, w) = image.shape[:2]

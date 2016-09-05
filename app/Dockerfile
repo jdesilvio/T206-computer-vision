@@ -33,18 +33,25 @@ RUN pip install Flask
 RUN pip install uwsgi
 
 # Build OpenCV and dependencies
-RUN cd && wget https://github.com/Itseez/opencv/archive/3.1.0.zip \
+RUN cd \
+    && git clone https://github.com/Itseez/opencv.git \
+    && cd opencv \
+    && git checkout tags/3.1.0 \
+    && cd \
     && git clone https://github.com/Itseez/opencv_contrib.git \
-        && unzip 3.1.0.zip \
-        && cd opencv-3.1.0 && mkdir build && cd build \
-        && cmake -D CMAKE_BUILD_TYPE=RELEASE \
-                 -D CMAKE_INSTALL_PREFIX=/usr/local \
-                 -D INSTALL_C_EXAMPLES=OFF \
-                 -D INSTALL_PYTHON_EXAMPLES=ON \
-                 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-                 -D BUILD_EXAMPLES=ON .. \
-    && make -j2 && make install \
-        && cd && rm -rf opencv-3.1.0 && rm 3.1.0.zip
+    && cd opencv_contrib \
+    && git checkout tags/3.1.0 \
+    && cd ~/opencv \
+    && mkdir build \
+    && cd build \
+    && cmake -D CMAKE_BUILD_TYPE=RELEASE \
+             -D CMAKE_INSTALL_PREFIX=/usr/local \
+             -D INSTALL_C_EXAMPLES=OFF \
+             -D INSTALL_PYTHON_EXAMPLES=ON \
+             -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+             -D BUILD_EXAMPLES=ON .. \
+    && make -j4 && make install \
+    && cd
 
 # Build HDF5
 RUN cd ; wget https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.16/src/hdf5-1.8.16.tar.gz
