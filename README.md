@@ -1,6 +1,6 @@
 #[cv.T206.io](http://cv.t206.io/)
 
-## A computer vision app for [T206.io](http://www.t206.io/)  
+## A computer vision app for [T206.io](http://www.t206.io/) [(GitHub repo)](https://github.com/jdesilvio/T206io)
 
 ### Made with:
 
