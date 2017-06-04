@@ -1,4 +1,4 @@
-#[cv.T206.io](http://cv.t206.io/)
+# [cv.T206.io](http://cv.t206.io/)
 
 ## A computer vision app for [T206.io](http://www.t206.io/) [(GitHub repo)](https://github.com/jdesilvio/T206io)
 
@@ -34,7 +34,7 @@
 
 And it sounds like a memory issue:
 
- * Create a (swapfile)[https://gist.github.com/jdesilvio/20665f75779e092bcd6a69351cd21e66]
+ * Create a [swapfile](https://gist.github.com/jdesilvio/20665f75779e092bcd6a69351cd21e66)
  * It could be that there is a bunch of junk in your `docker-machine`. Check the size of a file called `disk.vmdk`. If it's large and you are ok with deleting all images and containers and starting from scratch, run:
     docker-machine rm default
 
